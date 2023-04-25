@@ -100,4 +100,6 @@ def find_max_flow(original_graph, source, sink):
 
 max_flow = find_max_flow(graph, source, sink)
 
-print(b - max_flow)
+remaining = max(0, b - max_flow)
+
+print(remaining)
