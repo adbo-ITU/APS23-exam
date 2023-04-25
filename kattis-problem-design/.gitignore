@@ -1,5 +1,3 @@
-*.ans
-**/data/secret
 __pycache__
 *.class
 *.aux
