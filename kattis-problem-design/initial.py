@@ -21,19 +21,22 @@ in_flag, out_flag = 0, 1
 for row in range(r):
     for col in range(c):
         if rows[row][col]:
+            # Add edge from node's own in-node to its out-node
             graph[(row, col, in_flag)][(row, col, out_flag)] = 1
 
-for row in range(r - 1):
-    for col in range(c):
-        if rows[row][col]:
+            # Add all possible edges to adjacent nodes' in-nodes
             for dx in [-1, 0, 1]:
-                x, y = col + dx, row + 1
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0:
+                        continue
 
-                if x < 0 or x >= c:
-                    continue
+                    x, y = col + dx, row + dy
 
-                if rows[y][x]:
-                    graph[(row, col, out_flag)][(y, x, in_flag)] = 1
+                    if x < 0 or x >= c or y >= r or y < 0:
+                        continue
+
+                    if rows[y][x]:
+                        graph[(row, col, out_flag)][(y, x, in_flag)] = 1
 
 # Add source and sink
 source, sink = (-1, 0, out_flag), (-1, 1, in_flag)  # ensure outside of grid
