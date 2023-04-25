@@ -15,7 +15,14 @@ for row in range(r):
             rows[row][col] = True
 
 
+in_flag, out_flag = 0, 1
+
 # Construct graph
+for row in range(r):
+    for col in range(c):
+        if rows[row][col]:
+            graph[(row, col, in_flag)][(row, col, out_flag)] = 1
+
 for row in range(r - 1):
     for col in range(c):
         if rows[row][col]:
@@ -26,21 +33,23 @@ for row in range(r - 1):
                     continue
 
                 if rows[y][x]:
-                    graph[(row, col)][(y, x)] = 1
+                    graph[(row, col, out_flag)][(y, x, in_flag)] = 1
 
 # Add source and sink
-source, sink = (-1, 0), (-1, 1)  # ensure outside of grid
+source, sink = (-1, 0, out_flag), (-1, 1, in_flag)  # ensure outside of grid
 for col in range(c):
     if rows[0][col]:
-        graph[source][(0, col)] = 1
+        graph[source][(0, col, in_flag)] = 1
 
     if rows[r - 1][col]:
-        graph[(r - 1, col)][sink] = 1
+        graph[(r - 1, col, out_flag)][sink] = 1
 
-# Print all edges in the graph
+
+# # Print all edges in the graph
 # for start, adj in graph.items():
 #     for end, weight in adj.items():
-#         print(start, end, weight)
+#         fmt = lambda x: 'source' if x == source else 'sink' if x == sink else f'({x[0]},{x[1]},{"in" if x[2] == in_flag else "out"})'
+#         print(fmt(start), f'-({weight})>', fmt(end), sep='')
 
 
 # Find max flow
