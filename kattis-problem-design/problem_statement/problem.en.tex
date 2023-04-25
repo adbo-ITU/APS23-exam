@@ -1,0 +1,38 @@
+\problemname{Crowdsurfing}
+
+A band is performing at this year's Copenhell, and to finish off their concert in style, they would like to crowdsurf from the stage all the way from the stage to the back of the crowd.
+
+However, the band is not sure that the crowd will be able to carry all of them through. They're unsure how strong the people in the crowd are, so to be sure, each person in the crowd would have to carry at most one band member over the course of the crowdsurfing.
+
+A crowd member can pass a band member to other any of their 8 adjacent crowd members (that is, both orthogonally and diagonally adjacent).
+
+\section*{Input}
+
+\begin{verbatim}
+4 9 3
+.###..#.#
+..#..##.#
+#....##.#
+..#...##.
+\end{verbatim}
+
+\begin{itemize}
+  \item First line contains three numbers: $r$, $c$, $b$
+    \begin{itemize}
+      \item $r$: the number of rows
+      \item $c$: the number of columns
+      \item $b$: the number of band members
+    \end{itemize}
+  \item Then follow $r$ lines with $c$ characters. Each character indicates whether a person is standing there (\texttt{\#}) or if nobody is there to carry (\texttt{.}). The first row shows the people closest to the scene, and the last row shows the people furthest from the scene.
+\end{itemize}
+
+\section*{Output}
+
+The number of band members not able to crowdsurf. I.e. how many band members remain standing on the stage.
+
+Expected output for above input is 1. Two band members can surf the two rightmost paths. The remaining band member has nowhere to surf.
+
+\section*{Scoring}
+
+TBA:..
+Sample tests TBA...

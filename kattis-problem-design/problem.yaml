@@ -1,0 +1,7 @@
+name: Crowdsurfing
+author: Adrian Borup, Anne M. Bartholdy-Falk, Joachim Borup
+source: APS 2023 exam project, IT University of Copenhagen
+license: cc by-sa
+type: scoring
+grading:
+    show_test_data_groups: true

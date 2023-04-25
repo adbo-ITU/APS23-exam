@@ -1,0 +1,10 @@
+*.ans
+**/data/secret
+__pycache__
+*.class
+*.aux
+*.log
+.DS_Store
+*.pdf
+*_html
+data/sample/testdata.yaml
