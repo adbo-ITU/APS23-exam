@@ -38,9 +38,9 @@ for col in range(c):
         graph[(r - 1, col)][sink] = 1
 
 # Print all edges in the graph
-for start, adj in graph.items():
-    for end, weight in adj.items():
-        print(start, end, weight)
+# for start, adj in graph.items():
+#     for end, weight in adj.items():
+#         print(start, end, weight)
 
 
 # Find max flow
