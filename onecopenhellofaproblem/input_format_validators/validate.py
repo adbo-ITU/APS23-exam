@@ -27,8 +27,8 @@ assert args.min_b <= b <= args.max_b
 
 for i in range(r):
     line = sys.stdin.readline()
-    assert re.match(r"^([#\.]+)\n", line), i
-    assert len(line.strip()) == c, i
+    assert re.match(r"^([#\.]+)\n", line), f'Line {i}'
+    assert len(line.strip()) == c, f'Line {i}'
 
 assert sys.stdin.readline() == ""
 
