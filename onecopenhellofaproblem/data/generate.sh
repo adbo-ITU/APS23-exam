@@ -12,7 +12,7 @@ sample_manual 1
 
 group group1 50
 tc 1
-for FILE in ./manual-tests/*.in; do
+for FILE in ../manual-tests/*.in; do
   # tc_manual will use the inputs from the manual-tests directory, but will not
   # use the answer files. Those are just for ourselves when implementing and
   # validating the accepted solution.
