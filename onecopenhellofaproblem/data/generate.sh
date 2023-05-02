@@ -33,6 +33,9 @@ for density in "${densities[@]}"; do :
     tc random_small_density${density}_$i generate_input --approx-density=0.$density --max-r=15 --max-c=15 --max-b 15
   done
 done
+for i in {1..3}; do :
+  tc random_small_bottleneck_$i generate_input --style bottleneck --max-r=15 --max-c=15 --max-b 15
+done
 
 # ---------------
 # --- GROUP 2 ---
@@ -45,4 +48,7 @@ for density in "${densities[@]}"; do :
   for i in {1..3}; do :
     tc random_large_density${density}_$i generate_input --approx-density=0.$density --min-r 15 --max-r=50 --max-c=50
   done
+done
+for i in {1..3}; do :
+  tc random_large_bottleneck_$i generate_input --style bottleneck --min-r 15 --max-r=50 --max-c=50
 done
