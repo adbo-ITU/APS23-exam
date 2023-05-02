@@ -5,7 +5,7 @@ USE_SCORING=1
 
 use_solution maxflow.py
 
-compile generate_random_bottleneck.py
+compile generate_input.py
 
 samplegroup
 sample_manual 1
