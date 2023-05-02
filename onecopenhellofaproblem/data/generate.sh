@@ -52,3 +52,4 @@ done
 for i in {1..3}; do :
   tc random_large_bottleneck_$i generate_input --style bottleneck --min-r 15 --max-r=50 --max-c=50
 done
+tc full_size_full_crowd generate_input --approx-density=1 --min-r 50 --min-c 50 --max-r=50 --max-c=50
