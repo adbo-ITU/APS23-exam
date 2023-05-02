@@ -30,7 +30,7 @@ done
 densities=(75 50 25)
 for density in "${densities[@]}"; do :
   for i in {1..3}; do :
-    tc random_small_density_${density}_$i generate_input --min-r=1 --max-c=1 --max-r=15 --max-c=15 --min-b 1 --max-b 15 --approx-density=0.$density
+    tc random_small_density${density}_$i generate_input --approx-density=0.$density --max-r=15 --max-c=15 --max-b 15
   done
 done
 
@@ -43,6 +43,6 @@ limits --min-r=1 --max-c=1 --max-r=50 --max-c=50
 densities=(100 75 50 25)
 for density in "${densities[@]}"; do :
   for i in {1..3}; do :
-    tc random_large_density_${density}_$i generate_input --min-r=1 --max-c=1 --max-r=50 --max-c=50 --min-b 1 --max-b 15 --approx-density=0.$density
+    tc random_large_density${density}_$i generate_input --approx-density=0.$density --min-r 15 --max-r=50 --max-c=50
   done
 done
