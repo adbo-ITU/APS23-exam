@@ -1,83 +1,58 @@
 n = int(input())
 
-input = list(map(lambda x: int(x)*2, input().split()))
-bottles = list(input)
-bottles.extend([height*2 for height in input])
-bottles.extend([height/2 for height in input])
+# Multiply bottles by 2 to avoid floating point errors
+bottles = list(map(lambda x: int(x) * 2, input().split()))
 
-bottleset = sorted(set(bottles))
-num_heights = len(bottleset)
+# We will query bottles by 2x and 0.5x, so those need to be in the tree
+temp_bottles = list(bottles)
+temp_bottles.extend(height * 2 for height in bottles)
+temp_bottles.extend(height / 2 for height in bottles)
 
-bottlemap = dict([(bottle, i) for i, bottle in enumerate(bottleset,1)])
+# Reduce bottle heights from 1 ... 10^9 to 1 ... num_heights
+bottles_set = set(temp_bottles)
+bottle_map = dict([(bottle, i) for i, bottle in enumerate(sorted(bottles_set), start=1)])
 
-trios = [0]*(n)
-l = [0]*(n)
-r = [0]*(n)
+num_heights = len(bottles_set)
+max_height = max(bottles_set)
 
-max_height = max(bottleset)
-tree_len = num_heights
-
-left_tree = [0]*(num_heights+1)
-right_tree = [0]*(num_heights+1)
 
 def add(tree, k):
-    k = bottlemap[k]
-    while k <= tree_len:
-        tree[k] += 1
-        k += k&-k 
-
-def numSmallerThanOrEqual(tree, k, stop_early=False):
-    # print(k, end=' ')
-    k = bottlemap[k]
-    # print('turned into', k)
-    s = 0
-
-    if stop_early:
-        k -= 1
-    while k>=1: 
-        s += tree[k]
-        k -= k&-k
-    return s
-
-def numSmallerThan(tree, k):
-    return numSmallerThanOrEqual(tree, k, stop_early=True)
-
-# TODO: replace this with a true range sum method
-def range(tree, k):
-    # print(range_sum(tree, max_height), '-', range_sum(tree, min(max_height, k)))
-    return range_sum(tree, max_height) - range_sum(tree, min(max_height, k))
-
-def numLargerThanOrEqual(tree, k):
-    total = numSmallerThanOrEqual(tree, max_height)
-    smaller_or_equal = numSmallerThan(tree, k)
-    #print(total, smaller_or_equal)
-    #print("Number of heights at least", k, "is", total - smaller_or_equal)
-    return total - smaller_or_equal
-    '''
-    k = bottlemap[k]
-    s = 0
+    k = bottle_map[k]
     while k <= num_heights:
+        tree[k] += 1
+        k += k & -k
+
+
+def num_smaller_than(tree, k, or_equal_to=True):
+    k = bottle_map[k] - (0 if or_equal_to else 1)
+    s = 0
+    while k >= 1:
         s += tree[k]
-        k += k&-k
+        k -= k & -k
     return s
-    '''
+
+
+def num_larger_than_or_equal_to(tree, k):
+    # The number of bottles with height >= k is the total number
+    # of bottles minus the number of bottles with height < k
+    return num_smaller_than(tree, max_height) - num_smaller_than(tree, k, or_equal_to=False)
+
+
+# Fenwick trees
+left_tree = [0] * (num_heights + 1)
+right_tree = [0] * (num_heights + 1)
+
+# Number of trios for each bottle
+trios = [0] * n
+
 # Sweeping left-to-right
-for i, bottle in enumerate(input):
-    #l[i] = range(left_tree, bottle*2-1)
-    #trios[i] = range(left_tree, bottle*2-1)
-    trios[i] = numLargerThanOrEqual(left_tree, bottle*2)
+for i, bottle in enumerate(bottles):
+    trios[i] = num_larger_than_or_equal_to(left_tree, bottle * 2)
     add(left_tree, bottle)
 
 # Sweeping right-to-left
-for i, bottle in reversed(list(enumerate(input))):
-    trios[i] *= numSmallerThanOrEqual(right_tree, bottle/2)
-    #r[i] = numSmallerThanOrEqual(right_tree, bottle/2)
+for i, bottle in reversed(list(enumerate(bottles))):
+    trios[i] *= num_smaller_than(right_tree, bottle / 2)
     add(right_tree, bottle)
 
 print(sum(trios))
-
-
-
-
-
-            
