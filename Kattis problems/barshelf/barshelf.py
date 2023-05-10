@@ -34,7 +34,7 @@ def num_smaller_than(tree, k, or_equal_to=True):
 
 def num_larger_than_or_equal_to(tree, k):
     # The number of bottles with height >= k is the total number of bottles,
-    # minus the number of bottles with height <= k
+    # minus the number of bottles with height < k
     return num_smaller_than(tree, max_height) - num_smaller_than(tree, k, or_equal_to=False)
 
 
