@@ -10,7 +10,7 @@ temp_bottles.extend(height / 2 for height in bottles)
 
 # Reduce bottle heights from 1 ... 10^9 to 1 ... num_heights
 bottles_set = set(temp_bottles)
-bottle_map = dict([(bottle, i) for i, bottle in enumerate(sorted(bottles_set), start=1)])
+bottle_map = {bottle: i for i, bottle in enumerate(sorted(bottles_set), start=1)}
 
 num_heights = len(bottles_set)
 max_height = max(bottles_set)
@@ -33,8 +33,8 @@ def num_smaller_than(tree, k, or_equal_to=True):
 
 
 def num_larger_than_or_equal_to(tree, k):
-    # The number of bottles with height >= k is the total number
-    # of bottles minus the number of bottles with height < k
+    # The number of bottles with height >= k is the total number of bottles,
+    # minus the number of bottles with height <= k
     return num_smaller_than(tree, max_height) - num_smaller_than(tree, k, or_equal_to=False)
 
 
@@ -44,14 +44,15 @@ right_tree = [0] * (num_heights + 1)
 
 # Number of trios for each bottle
 trios = [0] * n
+enumerated_bottles = list(enumerate(bottles))
 
 # Sweeping left-to-right
-for i, bottle in enumerate(bottles):
+for i, bottle in enumerated_bottles:
     trios[i] = num_larger_than_or_equal_to(left_tree, bottle * 2)
     add(left_tree, bottle)
 
 # Sweeping right-to-left
-for i, bottle in reversed(list(enumerate(bottles))):
+for i, bottle in reversed(enumerated_bottles):
     trios[i] *= num_smaller_than(right_tree, bottle / 2)
     add(right_tree, bottle)
 
