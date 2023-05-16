@@ -52,8 +52,9 @@ for i, bottle in enumerated_bottles:
     add(left_tree, bottle)
 
 # Sweeping right-to-left
+total = 0
 for i, bottle in reversed(enumerated_bottles):
-    trios[i] *= num_smaller_than(right_tree, bottle / 2)
+    total += trios[i] * num_smaller_than(right_tree, bottle / 2)
     add(right_tree, bottle)
 
-print(sum(trios))
+print(total)
