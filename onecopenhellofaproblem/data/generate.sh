@@ -3,7 +3,7 @@ USE_SCORING=1
 
 . ../../_testdata_tools/gen.sh
 
-use_solution maxflow.py
+use_solution maxflow-capacity.py
 
 compile generate_input.py
 
