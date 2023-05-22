@@ -21,9 +21,9 @@ assert re.match(r"[1-9][0-9]* [1-9][0-9]* [1-9][0-9]*\n", line), line
 
 r, c, b = map(int, line.split())
 
-assert args.min_r <= r <= args.max_r
-assert args.min_c <= c <= args.max_c
-assert args.min_b <= b <= args.max_b
+assert args.min_r <= r <= args.max_r, f'r = {r}'
+assert args.min_c <= c <= args.max_c, f'c = {c}'
+assert args.min_b <= b <= args.max_b, f'b = {b}'
 
 for i in range(r):
     line = sys.stdin.readline()
