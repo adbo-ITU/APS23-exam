@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from sys import stdin
 from collections import defaultdict, deque
 
