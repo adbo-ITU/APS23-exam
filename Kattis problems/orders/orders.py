@@ -1,58 +1,84 @@
 n = int(input())
-menu_items = list(map(int, input().split()))
+menu_item_prices = list(map(int, input().split()))
 
 m = int(input())
 orders = list(map(int, input().split()))
-
 max_order = max(orders)
+
+# ambiguous[i] = True if there are multiple ways to get to price i
 ambiguous = [False] * (max_order + 1)
+# possible[i] = True if it is possible to reach price i
 possible = [False] * (max_order + 1)
 possible[0] = True
+# previous[i] = the price of the previous menu item in the path to price i
+previous = [None] * (max_order + 1)
+previous[0] = 0
+# menu_item_number[price] = the index of the menu item with that price
+menu_item_number = {}
 
-path = []
-for i in range(max_order + 1):
-    path.append([])
+for i, price in enumerate(menu_item_prices, start=1):
+    # Menu items can have the same price
+    if price in menu_item_number:
+        ambiguous[price] = True
+    else:
+        menu_item_number[price] = i
 
-menu_item_number = dict((item, i) for i, item in enumerate(menu_items, start=1))
 
-def are_equal_paths(a, b):
+# Recreates the path to price i
+def recreate_path(i, incl=None):
+    path = [] if incl is None else [incl]
+    while i > 0:
+        path.append(previous[i])
+        i -= previous[i]
+    return path
+
+
+# Checks if the new path (from i to i + price) is equal to the existing path to i + price
+def are_equal_paths(i, price):
+    a = recreate_path(i + price)
+    b = recreate_path(i, incl=price)
+
     if len(a) != len(b):
         return False
 
     a = sorted(a)
     b = sorted(b)
+
     for i in range(len(a)):
         if a[i] != b[i]:
-            False
+            return False
 
     return True
+
 
 for i in range(max_order + 1):
     if not possible[i]:
         continue
 
-    for item in menu_items:
-        if i + item > max_order:
+    for price in menu_item_prices:
+        # We don't need to precompute the paths to prices that are too large to be queried
+        if i + price > max_order:
             continue
 
+        # If an order is ambiguous, any other reachable order is also ambiguous
         if ambiguous[i]:
-            ambiguous[i + item] = True
-        elif possible[i + item] and not ambiguous[i + item]:
-            if not are_equal_paths(path[i] + [item], path[i + item]):
-                ambiguous[i + item] = True
+            ambiguous[i + price] = True
+        # If the order has been reached before, check if the new path is different
+        elif possible[i + price] and not ambiguous[i + price]:
+            if not are_equal_paths(i, price):
+                ambiguous[i + price] = True
+        # If the order has not been reached before, add a path to it
         else:
-            path[i + item] = path[i] + [item]
+            previous[i + price] = price
 
-        possible[i + item] = True
-
-# for i in range(max_order + 1):
-#     print(i, "Ambiguous:", ambiguous[i], "Possible:", possible[i], "Path:", path[i])
+        possible[i + price] = True
 
 for order in orders:
     if ambiguous[order]:
         print("Ambiguous")
     elif possible[order]:
-        ans = map(menu_item_number.get, path[order])
+        # Map the menu item prices to their menu item numbers
+        ans = map(menu_item_number.get, recreate_path(order))
         print(*sorted(ans))
     else:
         print("Impossible")
