@@ -15,7 +15,7 @@ const vertex SOURCE = {-1, 0, OUT_FLAG};
 const vertex SINK = {-1, 1, IN_FLAG};
 
 // Breadth-first search
-pair<bool, vector<pair<vertex, vertex>>> find_path(const flow_graph& graph, int min_capacity) {
+pair<bool, vector<pair<vertex, vertex>>> find_path(flow_graph& graph, int min_capacity) {
     map<vertex, vertex> parent;
     queue<vertex> q;
     q.push(SOURCE);
@@ -24,7 +24,7 @@ pair<bool, vector<pair<vertex, vertex>>> find_path(const flow_graph& graph, int 
         auto u = q.front();
         q.pop();
 
-        for (auto const& [v, capacity] : graph.at(u)) {
+        for (auto const& [v, capacity] : graph[u]) {
             if (capacity <= min_capacity || parent.find(v) != parent.end()) {
                 continue;
             }
