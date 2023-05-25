@@ -10,6 +10,8 @@ It is strongly recommended to use Kattis' `problemtools` via Docker. Run this in
 docker run --rm -it -v $(pwd):/apsdev -w /apsdev hamerly/problemtools-icpc
 ```
 
+If you are running an ARM processor, you might want to use the `finnlidbetter/problemtools-icpc-arm` image instead. It may speed up the sample submission runs significantly, leading to more realistic estimated time limits.
+
 ### Verify problem
 
 To verify the validity of the Kattis problem (folders, given accepted/not-accepted solutions, test cases, input format, etc.), run:

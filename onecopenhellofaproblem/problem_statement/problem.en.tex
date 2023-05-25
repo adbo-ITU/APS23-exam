@@ -13,7 +13,7 @@ Once a crowd member receives a band member, they can pass the band member to any
 
 \section*{Input}
 
-The first line of the input consists of three integers $r$, denoting the number of rows in the crowd, $c$, denoting the number of columns in the crowd, and $b$, denoting how many band members are on stage.
+The first line of the input consists of three integers $r$ ($r \geq 1$), denoting the number of rows in the crowd, $c$ ($c \geq 1$), denoting the number of columns in the crowd, and $b$ ($1 \leq b \leq 500$), denoting how many band members are on stage.
 
 Then follow $r$ lines, each containing $c$ characters, describing the crowd. Each character either denotes that a crowd member being present in that cell (\texttt{\#}) or that nobody is there to carry (\texttt{.}). The first row shows the people closest to the scene, and the last row shows the people furthest from the scene.
 
@@ -33,5 +33,9 @@ The expected output for the example input is 1, because two band members can sur
 
 \section*{Scoring}
 
-TBA:..
-Sample tests TBA...
+Your solution will be scored depending on how large a crowd it can process within the time limit. Test groups are as follows:
+
+\begin{itemize}
+  \item Group 1 (75 points): $r \leq 75$ and $c \leq 75$.
+  \item Group 2 (25 points): $r \leq 500$ and $c \leq 500$.
+\end{itemize}
