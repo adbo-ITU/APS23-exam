@@ -7,11 +7,11 @@ import argparse
 
 parser = argparse.ArgumentParser('Input format validator')
 parser.add_argument('--min-r', type=int, default=1)
-parser.add_argument('--max-r', type=int, default=100)
+parser.add_argument('--max-r', type=int, default=500)
 parser.add_argument('--min-c', type=int, default=1)
-parser.add_argument('--max-c', type=int, default=100)
+parser.add_argument('--max-c', type=int, default=500)
 parser.add_argument('--min-b', type=int, default=1)
-parser.add_argument('--max-b', type=int, default=100)
+parser.add_argument('--max-b', type=int, default=500)
 args = parser.parse_args()
 
 

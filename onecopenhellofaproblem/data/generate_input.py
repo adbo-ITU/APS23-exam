@@ -9,11 +9,11 @@ parser = argparse.ArgumentParser('Random input generator')
 # By convention, the last argv argument is a random seed. So we just have a positional argument for this.
 parser.add_argument('seed', type=int)
 parser.add_argument('--min-r', type=int, default=1)
-parser.add_argument('--max-r', type=int, default=100)
+parser.add_argument('--max-r', type=int, default=500)
 parser.add_argument('--min-c', type=int, default=1)
-parser.add_argument('--max-c', type=int, default=100)
+parser.add_argument('--max-c', type=int, default=500)
 parser.add_argument('--min-b', type=int, default=1)
-parser.add_argument('--max-b', type=int, default=100)
+parser.add_argument('--max-b', type=int, default=500)
 parser.add_argument('--style', type=str, default="random",
                     choices=["random", "bottleneck"])
 
